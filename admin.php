@@ -61,7 +61,7 @@ class plugins_faq_admin extends DBfaq{
 	 * Les variables globales
 	 */
 	public $action,$tab,$getlang,$edit,$message;
-	public $title, $content, $idqa;
+	public $title, $content, $idqa, $order;
 	public static $notify = array('plugin'=>'true','template'=>'message-faq.tpl','method'=>'display','assignFetch'=>'notifier');
 
     /**
@@ -98,9 +98,14 @@ class plugins_faq_admin extends DBfaq{
 			$this->idqa = magixcjquery_form_helpersforms::inputNumeric($_POST['idqa']);
 		}
 
-		#DELETE PAGE
+		# DELETE PAGE
 		if(magixcjquery_filter_request::isPOST('delete')){
 			$this->delete = magixcjquery_form_helpersforms::inputNumeric($_POST['delete']);
+		}
+
+		# ORDER PAGE
+		if(magixcjquery_filter_request::isPost('order')){
+			$this->order = magixcjquery_form_helpersforms::arrayClean($_POST['order']);
 		}
 
 		$this->template = new backend_controller_plugins();
@@ -140,6 +145,8 @@ class plugins_faq_admin extends DBfaq{
 
 			switch ($type) {
 				case 'add':
+					$c = parent::c_qa($this->getlang);
+					$page['qaorder'] = $c['nb'];
 					parent::i_qa($page);
 					break;
 				case 'update':
@@ -159,6 +166,20 @@ class plugins_faq_admin extends DBfaq{
 	{
 		parent::d_qa($this->delete);
 		$this->notify('delete');
+	}
+
+	/**
+	 * Execute Update AJAX FOR order
+	 * @access private
+	 *
+	 */
+	private function update_order(){
+		if(isset($this->order)){
+			$p = $this->order;
+			for ($i = 0; $i < count($p); $i++) {
+				parent::u_order($i,$p[$i]);
+			}
+		}
 	}
 
 	/**
@@ -193,9 +214,12 @@ class plugins_faq_admin extends DBfaq{
 						if ( isset($this->delete) && is_numeric($this->delete) ) {
 							$this->del();
 						}
-					} elseif ($this->action == 'getlist') {
-						$this->template->assign('pages',parent::getLastQA($this->getlang));
-						$this->template->display('loop/list.tpl');
+					} elseif ($this->action == 'order' && isset($this->order)) {
+						//var_dump($this->order);
+						$this->update_order();
+					} elseif ($this->action == 'getlast') {
+						$last = parent::getLastQA($this->getlang);
+						echo $last['id'];
 					} elseif ($this->action == 'list') {
 						$this->template->assign('pages',parent::getQA($this->getlang));
 						$this->template->display('index.tpl');
@@ -300,7 +324,7 @@ class DBfaq{
 	 */
 	protected function getQA($idlang)
 	{
-		$query = "SELECT idqa as id, title, content FROM mc_plugins_faq WHERE idlang = :idlang";
+		$query = "SELECT idqa as id, title, content FROM mc_plugins_faq WHERE idlang = :idlang ORDER BY qaorder";
 
 		return magixglobal_model_db::layerDB()->select($query, array(
 			':idlang' => $idlang
@@ -312,9 +336,9 @@ class DBfaq{
 	 */
 	protected function getLastQA($idlang)
 	{
-		$query = "SELECT idqa as id, title, content FROM `mc_plugins_faq` WHERE idlang = :idlang ORDER BY idqa DESC LIMIT 1";
+		$query = "SELECT idqa as id FROM `mc_plugins_faq` WHERE idlang = :idlang ORDER BY idqa DESC LIMIT 1";
 
-		return magixglobal_model_db::layerDB()->select($query, array(
+		return magixglobal_model_db::layerDB()->selectOne($query, array(
 				':idlang' => $idlang
 		));
 	}
@@ -341,7 +365,7 @@ class DBfaq{
 	 */
 	protected function c_qa($idlang)
 	{
-		$query = "SELECT COUNT(idqa) FROM mc_plugins_faq WHERE idlang = :idlang";
+		$query = "SELECT COUNT(idqa) as nb FROM mc_plugins_faq WHERE idlang = :idlang";
 
 		return magixglobal_model_db::layerDB()->selectOne($query, array(
 			':idlang' => $idlang
@@ -354,12 +378,13 @@ class DBfaq{
 	 */
 	protected function i_qa($page)
 	{
-		$query = "INSERT INTO mc_plugins_faq (idlang,title,content) VALUES (:idlang,:title,:content)";
+		$query = "INSERT INTO mc_plugins_faq (idlang,title,content,qaorder) VALUES (:idlang,:title,:content,:qaorder)";
 
 		magixglobal_model_db::layerDB()->insert($query,array(
 			':idlang'	=> $page['idlang'],
 			':title'	=> $page['title'],
-			':content'	=> $page['content']
+			':content'	=> $page['content'],
+			':qaorder'	=> $page['qaorder']
 		));
 	}
 
@@ -382,6 +407,21 @@ class DBfaq{
 				':title'	=> $page['title'],
 				':content'	=> $page['content']
 		));
+	}
+
+	/**
+	 * Met à jour l'ordre d'affichage des pages
+	 * @param $i
+	 * @param $id
+	 */
+	protected function u_order($i,$id){
+		$sql = 'UPDATE mc_plugins_faq SET qaorder = :i WHERE idqa = :id';
+		magixglobal_model_db::layerDB()->update($sql,
+			array(
+				':i'=>$i,
+				':id'=>$id
+			)
+		);
 	}
 
 	// DELETE

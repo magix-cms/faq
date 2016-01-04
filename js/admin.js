@@ -63,7 +63,7 @@ var MC_plugins_faq = (function ($, undefined) {
                         uri: '/'+baseadmin+'/plugins.php?name=faq&getlang='+getlang+'&action=edit',
                         typesend: 'post',
                         idforms: $(form),
-                        resetform: true,
+                        resetform: false,
                         successParams:function(data){
                             window.setTimeout(function() { $(".alert-success").alert('close'); }, 4000);
                             $.nicenotify.initbox(data,{
@@ -148,33 +148,15 @@ var MC_plugins_faq = (function ($, undefined) {
     function getAdvantage(baseadmin,getlang){
         $.nicenotify({
             ntype: "ajax",
-            uri: '/'+baseadmin+'/plugins.php?name=faq&getlang='+getlang+'&action=getlist',
+            uri: '/'+baseadmin+'/plugins.php?name=faq&getlang='+getlang+'&action=getlast',
             typesend: 'get',
-            beforeParams:function(){
-                var loader = $(document.createElement("tr")).attr('id','loader').append(
-                    $(document.createElement("td")).addClass('text-center').append(
-                        $(document.createElement("span")).addClass("loader offset5").append(
-                            $(document.createElement("img"))
-                                .attr('src','/'+baseadmin+'/template/img/loader/small_loading.gif')
-                                .attr('width','20px')
-                                .attr('height','20px')
-                        )
-                    )
-                );
-                $('#no-entry').before(loader);
-            },
             successParams:function(data){
-                $('#loader').remove();
-                $.nicenotify.initbox(data,{
-                    display:false
-                });
                 if(data === undefined){
                     console.log(data);
                 }
                 if(data !== null){
-                    $('#no-entry').before(data);
+                    $('#idqa').val(data);
                 }
-                updateList();
             }
         });
     }
@@ -203,6 +185,30 @@ var MC_plugins_faq = (function ($, undefined) {
             save(getlang,'edit','#edit_qa_page',null);
             del(getlang,'page','#del_qa_page','#deleteModal');
             updateList();
+
+			$(function(){
+				$( ".ui-sortable" ).sortable({
+					items: "> tr",
+					placeholder: "ui-state-highlight",
+					cursor: "move",
+					axis: "y",
+					update: function(){
+						var serial = $( ".ui-sortable" ).sortable('serialize');
+						$.nicenotify({
+							ntype: "ajax",
+							uri: '/'+baseadmin+'/plugins.php?name=faq&getlang='+getlang+'&action=order',
+							typesend: 'post',
+							noticedata : serial,
+							successParams:function(e){
+								$.nicenotify.initbox(e,{
+									display:false
+								});
+							}
+						});
+					}
+				});
+				$( ".ui-sortable" ).disableSelection();
+			});
         }
     };
 })(jQuery);

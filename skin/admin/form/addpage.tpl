@@ -23,6 +23,7 @@
         <div class="row">
             <div class="form-group col-xs-12">
                 <input type="submit" class="btn btn-primary" value="{#save#|ucfirst}" />
+                <input type="hidden" id="idqa" name="idqa" value="" />
             </div>
         </div>
     </fieldset>

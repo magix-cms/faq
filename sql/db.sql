@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS `mc_plugins_faq` (
   `idlang` int(10) unsigned NOT NULL,
   `title` varchar(250) NOT NULL,
   `content` text DEFAULT NULL,
+  `qaorder` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`idqa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -7,7 +7,7 @@
     {include file="nav.tpl"}
     <!-- Notifications Messages -->
     <div class="mc-message clearfix"></div>
-    <p id="addbtn"{if {$pages|count} == 4} class="hide""{/if}>
+    <p id="addbtn">
         <a class="btn btn-primary" href="{$pluginUrl}&amp;getlang={$smarty.get.getlang}&amp;action=add">
             <span class="fa fa-plus"></span>
             {#add_faq#|ucfirst}
@@ -26,7 +26,7 @@
             <th><span class="fa fa-trash-o"></span></th>
         </tr>
         </thead>
-        <tbody id="list_qa">
+        <tbody id="list_qa" class="ui-sortable">
         {if isset($pages) && !empty($pages)}
             {include file="loop/list.tpl" pages=$pages}
         {/if}

@@ -1,5 +1,5 @@
 {foreach $pages as $page}
-    <tr id="item_{$page.id}">
+    <tr id="order_{$page.id}">
         <td><a href="{$pluginUrl}&amp;getlang={$smarty.get.getlang}&amp;action=edit&amp;edit={$page.id}">{$page.title}</a></td>
         <td>{if $page.content}<span class="fa fa-check"></span>{else}<span class="fa fa-warning"></span>{/if}</td>
         <td><a href="{$pluginUrl}&amp;getlang={$smarty.get.getlang}&amp;action=edit&amp;edit={$page.id}"><span class="fa fa-edit"></span></a></td>
