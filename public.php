@@ -114,7 +114,7 @@ class database_plugins_faq{
     {
         $query = 'SELECT qa.* FROM mc_plugins_faq as qa
                 JOIN mc_lang AS lang ON(qa.idlang = lang.idlang)
-                WHERE lang.iso = :iso';
+                WHERE lang.iso = :iso ORDER BY qaorder';
 
         return magixglobal_model_db::layerDB()->select($query,array(
             ':iso'=>$iso
