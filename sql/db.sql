@@ -3,10 +3,10 @@
 --
 
 CREATE TABLE IF NOT EXISTS `mc_plugins_faq` (
-  `idqa` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `idlang` int(10) unsigned NOT NULL,
+  `idqa` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `idlang` smallint(3) unsigned NOT NULL,
   `title` varchar(250) NOT NULL,
   `content` text DEFAULT NULL,
-  `qaorder` tinyint(3) unsigned NOT NULL,
+  `qaorder` smallint(3) unsigned NOT NULL default 0,
   PRIMARY KEY (`idqa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
