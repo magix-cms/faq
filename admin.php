@@ -146,7 +146,10 @@ class plugins_faq_admin extends DBfaq{
 			switch ($type) {
 				case 'add':
 					$c = parent::c_qa($this->getlang);
-					$page['qaorder'] = $c['nb'];
+					if ($c != null)
+						$page['qaorder'] = $c['nb'];
+					else
+						$page['qaorder'] = 0;
 					parent::i_qa($page);
 					break;
 				case 'update':
