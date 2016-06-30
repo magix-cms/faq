@@ -131,7 +131,7 @@ var MC_plugins_faq = (function ($, undefined) {
                             $.nicenotify.initbox(data,{
                                 display:true
                             });
-                            $('#item_'+$('#delete').val()).remove();
+                            $('#order_'+$('#delete').val()).remove();
                             updateList();
                         }
                     });
