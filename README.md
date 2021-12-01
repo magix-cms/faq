@@ -1,17 +1,27 @@
 # faq
 Plugins faq for Magix CMS
 
-Ajouter une foire aux questions sur votre site internet avec le plugin Faq.
+Ajoutez une foire aux questions sur votre site internet avec le plugin Faq.
 
-### Gestion du plugin Faq
+## Gestion du plugin Faq
+### Configuration
+#### Mode d'affichage
+Deux modes d'affichage son disponibles:
+* Liste - Toutes les questions se trouvent sur la page principale avec leur réponse respective;
+* Pages - Chaque question/réponse possède son URL et sa page propre, la page principale n'affichant que la liste des questions disponibles avec un lien pour y accéder.
 
-![Plugin Faq Magix CMS](https://cloud.githubusercontent.com/assets/356674/12451350/29628460-bf89-11e5-9727-2d1416ffe3bd.png "Plugin Faq ou Foire aux questions dans Magix CMS")
+#### Mode accordéon
+Si vous avez choisi le mode liste pour l'affichage, le mode accordéon permet d'activer/désactiver l'effet accordéon pour l'affichage des réponses aux questions (ouvrir une réponse ferme celle précédemment ouverte).
 
-### Visuel Faq
-![Plugin Faq Magix CMS](https://cloud.githubusercontent.com/assets/356674/12451351/2963750a-bf89-11e5-9e23-35303b7ecd06.png "Plugin Faq ou Foire aux questions dans Magix CMS")
+### Page principale
+Vous pouvez changer son titre, son contenu, et ses balises meta titre et description
 
-Authors
--------
+### Question/Réponse
+Vous pouvez ajouter autant de question réponse que vous le souhaitez.
 
-* Salvatore (http://www.disalvo-infographiste.be)
-* Gerits Aurelien (aurelien[at]magix-cms[point]com)
+Si vous avez configuré votre plugin en mode *Pages* vous aurez également la possibilité de modifier l'url et les metas titre et description pour chaque question/réponse.
+
+
+## Authors
+
+* Xarksass (https://github.com/Xarksass)

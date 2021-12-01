@@ -1,0 +1,76 @@
+// Compiler options
+@import (reference) "../components/variables";
+@import (reference) "../components/colors";
+@import (reference) "../components/theme";
+
+// Core variables and mixins
+@import (reference) "../components/mixins";
+@import (reference) "../components/reboot";
+@import (reference) "../components/type";
+
+// Core icons
+@import (reference) "../../../icofont/variables";
+
+#faq {
+	.panel {
+		border: none;
+		box-shadow: none;
+
+		.panel-body {
+			border: none;
+		}
+
+		.panel-heading {
+			//background-color: var(--main-color);
+			//color: var(--smooth-white);
+			//border-radius: 0;
+
+			.panel-title {
+				//font-size: 20px;
+				position: relative;
+				.text-overflow;
+
+				&, &.open.collapsed {
+					.show-more > span,
+					.show-more > i {
+						.auto-transition(.2s);
+						transform: scale(1,1);
+					}
+				}
+
+				&.open,
+				&:not(.collapsed){
+					.show-more > span,
+					.show-more > i {
+						transform: scale(1,0);
+					}
+				}
+			}
+
+			.icon {
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				padding: .5rem;
+				margin: 0;
+				border: none;
+				font-size: 1.5rem;
+				transform: translateY(-50%);
+				z-index: 1;
+
+				.ico {
+					line-height: 1;
+				}
+
+				.show-less {
+					position: absolute;
+					top: .5rem;
+					z-index: 10;
+					right: 50%;
+					transform: translateX(50%);
+				}
+			}
+		}
+	}
+}

@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- /*
- * MAGIX CMS Copyright (c) 2011 Gerits Aurelien, 
+ * MAGIX CMS Copyright (c) 2008 - 2021 Gerits Aurelien,
  * http://www.magix-dev
  * Dual licensed under the MIT AND GPL Version 3 licenses.
- *
- * Date: August 4 17:00 2011
  */-->
 <config>
-	<acl>
-		<admin>
-			<authorized>
-				<allow_access>1</allow_access>
-			</authorized>
-			<infos>
-				<authors>
-					<author>
-						<name>Salvatore Di Salvo</name>
-						<link>
-                            <website href="http://www.disalvo-infographiste.be" />
-						</link>
-					</author>
-				</authors>
-				<version>
-					<date_create>18/12/2015</date_create>
-					<date_update>18/12/2015</date_update>
-					<number>1.0.0</number>
-					<phase>Stable</phase>
-					<support>
-                        <ticket href="https://github.com/magix-cms/magixcms/issues"></ticket>
-                        <git href="https://github.com/magix-cms/magixcms"></git>
-					</support>
-				</version>
-			</infos>
-		</admin>
-	</acl>
+	<authorized>
+		<allow_access>*</allow_access>
+	</authorized>
+	<data>
+		<authors>
+			<author>
+				<name>Salvatore Di Salvo</name>
+				<website href="https://github.com/Xarksass" />
+			</author>
+		</authors>
+		<release>
+			<date_create>16/12/2015</date_create>
+			<date_update>25/11/2021</date_update>
+			<version>3.0.0</version>
+			<phase>Stable</phase>
+		</release>
+		<support>
+			<ticket href="https://github.com/magix-cms/faq/issues"></ticket>
+			<git href="https://github.com/magix-cms/faq"></git>
+		</support>
+	</data>
 </config>

@@ -1,0 +1,1 @@
+#mode_faq>.btn input[type=checkbox],#mode_faq>.btn input[type=radio],#mode_faq>.btn-group>.btn input[type=checkbox],#mode_faq>.btn-group>.btn input[type=radio]{position:absolute;clip:rect(0,0,0,0);pointer-events:none}
