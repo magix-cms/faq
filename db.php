@@ -92,7 +92,9 @@ class plugins_faq_db {
 					$sql = 'SELECT 
                                 mqc.id_qa,
                                 mqc.title_qa,
-                                mqc.desc_qa
+                                mqc.url_qa,
+                                mqc.desc_qa,
+                                ml.iso_lang
 							FROM mc_qa mq
 							JOIN mc_qa_content mqc ON(mq.id_qa = mqc.id_qa)
 							JOIN mc_lang ml ON(mqc.id_lang = ml.id_lang)

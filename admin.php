@@ -52,7 +52,6 @@ class plugins_faq_admin extends plugins_faq_db {
 	 * @var backend_model_language $modelLanguage
 	 * @var component_collections_language $collectionLanguage
 	 * @var backend_model_data $data
-	 * @var backend_model_setting $settings
 	 * @var http_header $header
 	 * @var form_inputEscape $formClean
 	 */
@@ -63,7 +62,6 @@ class plugins_faq_admin extends plugins_faq_db {
 		$modelLanguage,
 		$collectionLanguage,
 		$data,
-		$settings,
 		$header,
         $formClean;
 
@@ -71,11 +69,6 @@ class plugins_faq_admin extends plugins_faq_db {
 	 * @var string $controller
 	 */
 	protected $controller;
-
-	/**
-	 * @var array $setting
-	 */
-	protected $setting;
 
 	/**
 	 * @var string $action
@@ -102,7 +95,7 @@ class plugins_faq_admin extends plugins_faq_db {
 	public
 		$qa = [],
 		$faq = [],
-		$faq_config = [],
+		//$faq_config = [],
 		$order = [];
 
 	/**
@@ -115,8 +108,6 @@ class plugins_faq_admin extends plugins_faq_db {
 		$this->modelLanguage = new backend_model_language($this->template);
 		$this->collectionLanguage = new component_collections_language();
 		$this->data = new backend_model_data($this);
-		$this->settings = new backend_model_setting();
-		$this->setting = $this->settings->getSetting();
 		$this->header = new http_header();
         $this->formClean = new form_inputEscape();
 
@@ -135,16 +126,17 @@ class plugins_faq_admin extends plugins_faq_db {
 		return $this->template->getConfigVars('faq_plugin');
 	}
 
-	/**
-	 * Assign data to the defined variable or return the data
-	 * @param string $type
-	 * @param string|int|null $id
-	 * @param string|null $context
-	 * @param string|bool $assign
-	 * @return mixed
-	 */
-	private function getItems(string $type, $id = null, string $context = null, $assign = true) {
-		return $this->data->getItems($type, $id, $context, $assign);
+    /**
+     * Assign data to the defined variable or return the data
+     * @param string $type
+     * @param array|int|null $id
+     * @param string|null $context
+     * @param boolean|string $assign
+     * @param boolean $pagination
+     * @return mixed
+     */
+    private function getItems(string $type, $id = null, string $context = null, $assign = true, bool $pagination = false) {
+		return $this->data->getItems($type, $id, $context, $assign, $pagination);
 	}
 
 	/**

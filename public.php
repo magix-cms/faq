@@ -152,7 +152,8 @@ class plugins_faq_public extends plugins_faq_db {
     public function run() {
         $this->template->configLoad();
         $config = $this->getItems('faq_config',null,'one');
-        $this->setBreadcrumb($config);
+        //$this->setBreadcrumb($config);
+
         if(isset($this->id) && $config['mode_faq'] === 'pages') {
             $langs = $this->getItems('qaActiveContent',$this->id,'all',false);
             $hreflang = [];
@@ -161,6 +162,12 @@ class plugins_faq_public extends plugins_faq_db {
                     $hreflang[$row['id_lang']] = '/'.$row['iso_lang'].'/faq/'.$row['id_qa'].'-'.$row['url_qa'].'/';
                 }
             }
+            $dataPage = $this->getItems('QA',['id' => $this->id, 'lang' => $this->lang],'one',false);
+            $this->template->breadcrumb->addItem($this->template->getConfigVars('faq'),'/'.$this->lang.'/faq/');
+
+            $this->template->breadcrumb->addItem(
+                $dataPage['title_qa']
+            );
             $this->template->assign('hreflang',$hreflang,true);
             $this->template->assign('QA',$this->getQAContent($this->id));
             $this->template->display('faq/qa.tpl');
@@ -170,6 +177,8 @@ class plugins_faq_public extends plugins_faq_db {
                 $_GET['open'] = $this->id;
                 $this->template->assign('canonical',"/$this->lang/faq/");
             }
+            $this->template->breadcrumb->addItem($this->template->getConfigVars('faq'));
+
             $this->template->assign('page',$this->getPageContent());
             $this->template->assign('QAs',$this->getQAs());
             $this->template->display('faq/index.tpl');

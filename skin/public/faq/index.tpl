@@ -4,9 +4,7 @@
 {block name='body:id'}faq{/block}
 {block name="webType"}FAQPage{/block}
 {block name="styleSheet"}
-    {$css_files = ["/skin/{$theme}/css/faq{if $setting.mode.value !== 'dev'}.min{/if}.css"]}
-{/block}
-
+    {$css_files = ["faq"]}{/block}
 {block name='article'}
     <article id="article" class="container" class="col-xs-12" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/WebPageElement">
     {block name='article:content'}
